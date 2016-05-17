@@ -1,37 +1,16 @@
 #!/usr/bin/env node
 var app = require('../app');
-var fs = require('fs');
-var path = require('path');
-var mkdirp = require('mkdirp');
+var orgUtil = require('../middleware/orgsUtility.js');
 
 app.set('port', process.env.PORT || 3000);
 
 // Prepare org root & template
-var orgRoot = path.join(process.env.PROGRAMDATA, 'pearl', 'public', 'orgconfig');
-mkdirp(orgRoot, function(err) {
-	if(err) {
-		console.log('Failed to prepare org root, due to: ' + err);
-	} else {
-		var templatePath = path.join(orgRoot, 'template.json');
-		if(fs.exists(templatePath, function(exists) {
-			if(exists == false) {
-				fs.writeFile(templatePath, '{\"configuration\":null,\"system_information\":null,\"deleted\":false}', function(err) {
-					if(err) {
-						console.log('Failed to generate org template, due to: ' + err);
-					} else {
-						// start server now
-						var server = app.listen(app.get('port'), function() {
-							console.log('Express server listening on port ' + server.address().port);
-						});
-					}
-				});
-			} else {
-				// start server now
-				var server = app.listen(app.get('port'), function() {
-					console.log('Express server listening on port ' + server.address().port);
-				});
-			}
-		}));
+orgUtil.prepareOrgRoot(function(succeeded) {
+	if(succeeded) {
+		// start server now
+		var server = app.listen(app.get('port'), function() {
+			console.log('Express server listening on port ' + server.address().port);
+		});
 	}
 });
 
