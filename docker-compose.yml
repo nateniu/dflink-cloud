@@ -1,0 +1,7 @@
+app:
+  build: .
+  command: npm start
+  ports:
+    - "3000:3000"
+  volumes:
+    - ./:/dev-d3-usr

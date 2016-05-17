@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# To be used in CI publish steps
+set -e
+
+echo DOCKER_REGISTRY_HOST=${DOCKER_REGISTRY_HOST}
+echo PROJECT_NAME=${PROJECT_NAME}
+echo SHA=$SHA
+echo ${DOCKER_REGISTRY_HOST}/${PROJECT_NAME}:$SHA
+echo ""
+
+docker build -t ${DOCKER_REGISTRY_HOST}/${PROJECT_NAME}:$SHA .
+docker push ${DOCKER_REGISTRY_HOST}/${PROJECT_NAME}:$SHA
+
+docker build -t ${DOCKER_REGISTRY_HOST}/${PROJECT_NAME}:production .
+docker push ${DOCKER_REGISTRY_HOST}/${PROJECT_NAME}:production
+
+

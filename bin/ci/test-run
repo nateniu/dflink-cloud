@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# To be used in CI build steps
+set -e
+sleep 20
+docker-compose run -T app npm test
