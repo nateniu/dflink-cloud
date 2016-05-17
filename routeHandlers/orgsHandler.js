@@ -2,10 +2,12 @@ var fs = require('fs');
 var async = require('async');
 var path = require('path');
 
+var orgRoot = path.join(process.env.PROGRAMDATA, 'pearl', 'public', 'orgconfig');
+
 function getOrg(bizId, callback) {
 	console.log('Requesting org for business ' + bizId);
 	
-	var orgPath = path.join(process.env.PROGRAMDATA, 'pearl', 'public', 'orgconfig', bizId + '.json');
+	var orgPath = path.join(orgRoot, bizId + '.json');
 	async.waterfall([
 		// Step 1: check if the org file is exists
 		function (callback) {
@@ -16,7 +18,7 @@ function getOrg(bizId, callback) {
 		// Step 2: generate an org file from template, if it isn't existed
 		function (exists, callback) {
 			if (exists == false) {
-				var templatePath = path.join(process.env.PROGRAMDATA, 'pearl', 'public', 'orgconfig', 'template.json');
+				var templatePath = path.join(orgRoot, 'template.json');
 				// read the template content
 				fs.readFile(templatePath, 'utf-8', function (err, data) {
 					if (err) {
@@ -63,7 +65,7 @@ function getOrg(bizId, callback) {
 function saveOrg(bizId, content, callback) {
 	console.log('Saving org for business ' + bizId);
 	
-	var orgPath = path.join(process.env.PROGRAMDATA, 'pearl', 'public', 'orgconfig', bizId + '.json');
+	var orgPath = path.join(orgRoot, bizId + '.json');
 	// write the new content to org file
 	fs.writeFile(orgPath, content, 'utf-8', function (err) {
 		if (err) {
@@ -74,6 +76,8 @@ function saveOrg(bizId, content, callback) {
 		}
 	});
 }
+
+
 
 exports.getOrg = getOrg;
 exports.saveOrg = saveOrg;
