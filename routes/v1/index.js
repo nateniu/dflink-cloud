@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var businessRoutes = require("./business")
+var orgsRoutes = require("./orgs.js")
 
 router.get('/', function(req, res) {
   res.send("Hello World!")
 });
 
-router.use('/business', businessRoutes)
+router.use('/orgs', orgsRoutes)
 
 module.exports = router;

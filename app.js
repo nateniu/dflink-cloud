@@ -22,9 +22,9 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 
-app.use('/v1', v1Routes);
+//app.use('/v1', v1Routes);
 app.use('/', v1Routes);
-app.use('/admin', admin);
+//app.use('/admin', admin);
 
 
 /// catch 404 and forward to error handler
