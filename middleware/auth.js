@@ -1,44 +1,38 @@
-var PORTAL_URL, config, log, request, url;
-request = require('request');
-config = require('../config/env.json')[process.env.NODE_ENV];
-url = require("url");
-log = require('../config/logger').mainLogger;
+var passport = require('passport');
+var logger = require('../utils/logger');
+var BearerStrategy = require('passport-http-bearer').Strategy;
+var dal = require('../db/dal');
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-process.env.NODE_ENV = process.env.NODE_ENV || "development";
+var auth_strategies = ['bearer'];
 
-PORTAL_URL = config.portal.url;
-
-module.exports = function(cookie) {
-  var options;
-  options = {
-    url: PORTAL_URL + "/bp2/session.jsp",
-    headers: {
-      cookie: "JSESSIONID=" + req.cookies.JSESSIONID
-    },
-    followRedirect: false
-  };
-  return request(options, function(error, response, body) {
-    var url_parts;
-    if (error) {
-      return res.status(500).end();
+passport.use(new BearerStrategy(
+    function (token, done) {
+        logger.info("executing token strategy");
+        bearerAuth(token, done);
     }
-    if (response.statusCode === 200) {
-      req.business = JSON.parse(body).business;
-      return next();
-    } else if (response.statusCode === 301 || response.statusCode === 302) {
-      url_parts = url.parse(response.headers.location);
-      log.error({
-        err: {
-          response: response.statusCode,
-          cookie: req.cookies,
-          sessionID: req.cookies.JSESSIONID,
-          url_parts: url_parts
+));
+
+var bearerAuth = function (token, done) {
+    dal.queryByToken(token, function (error, rows) {
+        if (error) {
+            logger.error("error while authenticating token " + error);
+            done(null, null);
         }
-      }, 'session 300');
-      res.redirect("/bp2/secureRedirect.jsp?redirectUrl=/portal/settings/scheduling");
-    } else {
-      return res.status(500).end();
-    }
-  });
+        if (rows) {
+            done(null, "d3:" + rows.BusinessId, { scope: 'read-write' });
+        } else {
+            logger.error("authentication failed for token:" + token);
+            done(null, null);
+        }
+    });
 };
+
+exports.authenticate = function (server, regex) {
+    server.all(regex,
+        passport.authenticate(auth_strategies, { session: false }),
+        function (req, res, next) {
+        next();
+    });
+};
+
+console.log("finish registering authenticaion middleware");

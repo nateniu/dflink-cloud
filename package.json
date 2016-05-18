@@ -1,5 +1,5 @@
 {
-  "name": "node-workshop-demo",
+  "name": "dflink-cloud-demo",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -9,14 +9,14 @@
     "async": "^2.0.0-rc.5",
     "body-parser": "^1.13.3",
     "bunyan": "^1.7.1",
-    "coffee-script": "^1.10.0",
-    "cookie-parser": "^1.3.3",
     "express": "^4.13.3",
     "forever": "^0.15.1",
     "mkdirp": "^0.5.1",
     "morgan": "^1.6.1",
     "nodeunit": "^0.9.1",
-    "serve-favicon": "^2.3.0"
+    "serve-favicon": "^2.3.0",
+    "passport": "^0.3.2",
+    "passport-http-bearer": "^1.0.0"
   },
   "devDependencies": {
     "mocha": "2.4.5"

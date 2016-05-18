@@ -1,15 +1,14 @@
 var express = require('express');
 var path = require('path');
-require("coffee-script/register")
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var v1Routes = require('./routes/v1');
 var admin = require('./routes/admin');
+var auth = require('./middleware/auth');
 
 var app = express();
-
+auth.authenticate(app, '/orgs*');
 var env = process.env.NODE_ENV || 'development';
 app.locals.ENV = env;
 app.locals.ENV_DEVELOPMENT = env == 'development';
@@ -20,11 +19,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-app.use(cookieParser());
 
 //app.use('/v1', v1Routes);
 app.use('/', v1Routes);
-//app.use('/admin', admin);
+app.use('/admin', admin);
 
 
 /// catch 404 and forward to error handler
