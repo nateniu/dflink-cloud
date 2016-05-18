@@ -1,6 +1,7 @@
 var fs = require('fs');
 var async = require('async');
 var path = require('path');
+var orgUtil = require('../middleware/orgsUtility.js');
 
 var orgRoot = path.join(process.env.PROGRAMDATA, 'pearl', 'public', 'orgconfig');
 
@@ -18,46 +19,32 @@ function getOrg(bizId, callback) {
 		// Step 2: generate an org file from template, if it isn't existed
 		function (exists, callback) {
 			if (exists == false) {
-				var templatePath = path.join(orgRoot, 'template.json');
-				// read the template content
-				fs.readFile(templatePath, 'utf-8', function (err, data) {
+				orgUtil.generateBusinessOrg(bizId, function (err) {
 					if (err) {
-						throw err;
+						callback(err, false);
 					} else {
-						// write the content to org file
-						fs.writeFile(orgPath, data, 'utf-8', function (err) {
-							console.log('generating new org for business ' + bizId);
-							if (err) {
-								throw err;
-							} else {
-								console.log('org ready');
-								callback(null);
-							}
-						});
+						callback(null, true);
 					}
 				});
 			} else {
 				console.log('org ready');
-				callback(null);
+				callback(null, true);
 			}
-		},
-		// Step 3: read the content of org file for return
-		function (callback) {
-			fs.readFile(orgPath, 'utf-8', function (err, data) {
-				if (err) {
-					callback(err, undefined);
-				} else {
-					callback(null, data);
-				}
-			});
 		}
-	], function (err, org) {
-		if (err) {
+	], function (err, orgReady) {
+		if (orgReady == false) {
 			console.log(err);
 			callback(undefined);
 		} else {
-			// actually return the org content
-			callback(org);
+			// Step 3: read the content of org file for return
+			fs.readFile(orgPath, 'utf-8', function (fserr, data) {
+				if (fserr) {
+					console.log(fserr);
+					callback(undefined);
+				} else {
+					callback(data);
+				}
+			});
 		}
 	});
 }
