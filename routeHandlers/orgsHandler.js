@@ -2,13 +2,12 @@ var fs = require('fs');
 var async = require('async');
 var path = require('path');
 var orgUtil = require('../middleware/orgsUtility.js');
-
-var orgRoot = path.join(process.env.PROGRAMDATA, 'pearl', 'public', 'orgconfig');
+var logger = require('../utils/logger.js');
 
 function getOrg(bizId, callback) {
-	console.log('Requesting org for business ' + bizId);
+	logger.info('Requesting org for business ' + bizId);
 	
-	var orgPath = path.join(orgRoot, bizId + '.json');
+	var orgPath = path.join(orgUtil.getOrgRoot(), bizId + '.json');
 	async.waterfall([
 		// Step 1: check if the org file is exists
 		function (callback) {
@@ -27,19 +26,19 @@ function getOrg(bizId, callback) {
 					}
 				});
 			} else {
-				console.log('org ready');
+				logger.info('org ready');
 				callback(null, true);
 			}
 		}
 	], function (err, orgReady) {
 		if (orgReady == false) {
-			console.log(err);
+			logger.error(err);
 			callback(undefined);
 		} else {
 			// Step 3: read the content of org file for return
 			fs.readFile(orgPath, 'utf-8', function (fserr, data) {
 				if (fserr) {
-					console.log(fserr);
+					logger.error(fserr);
 					callback(undefined);
 				} else {
 					callback(data);
@@ -50,21 +49,19 @@ function getOrg(bizId, callback) {
 }
 
 function saveOrg(bizId, content, callback) {
-	console.log('Saving org for business ' + bizId);
+	logger.info('Saving org for business ' + bizId);
 	
-	var orgPath = path.join(orgRoot, bizId + '.json');
+	var orgPath = path.join(orgUtil.getOrgRoot(), bizId + '.json');
 	// write the new content to org file
 	fs.writeFile(orgPath, content, 'utf-8', function (err) {
 		if (err) {
-			console.log(err);
+			logger.error(err);
 			callback(false);
 		} else {
 			callback(true);
 		}
 	});
 }
-
-
 
 exports.getOrg = getOrg;
 exports.saveOrg = saveOrg;

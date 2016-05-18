@@ -1,16 +1,23 @@
 ﻿var fs = require('fs');
 var path = require('path');
 var mkdirp = require('mkdirp');
+var global = require('../utils/global.js');
+var logger = require('../utils/logger.js');
 
-var orgRoot = path.join(process.env.PROGRAMDATA, 'pearl', 'public', 'orgconfig');
+var orgRoot = path.join(global.DBROOT, 'public', 'orgconfig');
 var templatePath = path.join(orgRoot, 'template.json');
+
+// function to get org root path for use
+function getOrgRoot() {
+	return orgRoot;
+}
 
 // function to prepare the org root folder, and the org template file
 function prepareOrgRoot(callback) {
 	// create org root folder by calling mkdirp module
     mkdirp(orgRoot, function (err) {
         if (err) {
-            console.log('Failed to prepare org root, due to: ' + err);
+            logger.error('Failed to prepare org root, due to: ' + err);
 		} else {
 			// if template file does not existed, generate one with default content
             var templatePath = path.join(orgRoot, 'template.json');
@@ -18,7 +25,7 @@ function prepareOrgRoot(callback) {
                 if (exists == false) {
                     fs.writeFile(templatePath, '{\"configuration\":null,\"system_information\":null,\"deleted\":false}', function (err) {
                         if (err) {
-                            console.log('Failed to generate org template, due to: ' + err);
+                            logger.error('Failed to generate org template, due to: ' + err);
                             callback(false);
                         } else {
                             callback(true);
@@ -43,11 +50,11 @@ function generateBusinessOrg(bizId, callback) {
 		} else {
 			// write the content to org file
 			fs.writeFile(orgPath, data, 'utf-8', function (err) {
-				console.log('generating new org for business ' + bizId);
+				logger.info('generating new org for business ' + bizId);
 				if (err) {
 					callback(err);
 				} else {
-					console.log('org ready');
+					logger.info('org ready');
 					callback(null);
 				}
 			});
@@ -55,5 +62,6 @@ function generateBusinessOrg(bizId, callback) {
 	});
 }
 
+exports.getOrgRoot = getOrgRoot;
 exports.prepareOrgRoot = prepareOrgRoot;
 exports.generateBusinessOrg = generateBusinessOrg;
