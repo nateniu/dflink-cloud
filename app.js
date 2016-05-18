@@ -4,7 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var v1Routes = require('./routes/v1');
-var admin = require('./routes/admin');
 var auth = require('./middleware/auth');
 var login = require('./middleware/login');
 
@@ -23,7 +22,6 @@ app.use(bodyParser.urlencoded({
 
 //app.use('/v1', v1Routes);
 app.use('/', v1Routes);
-app.use('/admin', admin);
 app.use('/login',login);
 
 /// catch 404 and forward to error handler

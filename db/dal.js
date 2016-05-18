@@ -1,12 +1,13 @@
-﻿var records = [
-    { BusinessId: 137000722, LicesenKey: '123' }
-  , { BusinessId: 137000111, LicesenKey: 'abc' }
+﻿var TEST_BUSINESSES = [
+    { BusinessId: 137000722, LicesenKey: '8A54A1A2-CC3A-6918-42D0-23826C8054AF' }
+  , { BusinessId: 137001011, LicesenKey: '777D4E48-616A-2351-CE58-139B75414D79' }
+  , { BusinessId: 1990002192, LicenseKey: '34211F8E-E575-462D-70DD-5DE095FC2471' }
 ];
 
 exports.queryByToken = function (token, done) {
     process.nextTick(function () {
-        for (var i = 0, len = records.length; i < len; i++) {
-            var record = records[i];
+        for (var i = 0, len = TEST_BUSINESSES.length; i < len; i++) {
+            var record = TEST_BUSINESSES[i];
             if (record.LicesenKey === token) {
                 return done(null, record);
             }
@@ -16,8 +17,8 @@ exports.queryByToken = function (token, done) {
 }
 
 var TEST_ACCOUNTS = {
-  "test2190:CpsR0cks": {license_key: "34211F8E-E575-462D-70DD-5DE095FC2469", "business_id": "1990002190", "industry": "2"},
-  "test2191:CpsR0cks": {license_key: "34211F8E-E575-462D-70DD-5DE095FC2470", "business_id": "1990002191", "industry": "2"},
+  "dfs_qb_auto_03@demandforce.com:dfsTest1!": {license_key: "8A54A1A2-CC3A-6918-42D0-23826C8054AF", "business_id": "137000722", "industry": "1"},
+  "Vortx_test1@demandforce.com:Success1!": { license_key: "777D4E48-616A-2351-CE58-139B75414D79", "business_id": "137001011", "industry": "24" },
   "test2192:CpsR0cks": {license_key: "34211F8E-E575-462D-70DD-5DE095FC2471", "business_id": "1990002192", "industry": "2"},
 };
 
