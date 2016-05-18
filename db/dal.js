@@ -21,10 +21,6 @@ var TEST_ACCOUNTS = {
   "test2192:CpsR0cks": {license_key: "34211F8E-E575-462D-70DD-5DE095FC2471", "business_id": "1990002192", "industry": "2"},
 };
 
-exports.queryLiscenceByCredential = function (credentials, done) {
-  if (TEST_ACCOUNTS[credentials.username + ":" + credentials.password]) {
-    return done(null, TEST_ACCOUNTS[credentials.username + ":" + credentials.password]);
-  } else {
-    return done("Unauthorized");
-  }
+exports.queryLiscenceByCredential = function (credentials) {
+    return TEST_ACCOUNTS[credentials.username + ":" + credentials.password];
 }
