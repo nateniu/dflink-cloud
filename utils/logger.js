@@ -7,7 +7,7 @@ if (process.env.DEBUG) {
 }
 
 configs = {
-  name: process.env.NODE_PROCESS_NAME || 'business-api',
+  name: process.env.NODE_PROCESS_NAME || 'dflink-api',
   streams: [
     {
       stream: process.stdout,
