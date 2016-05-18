@@ -5,7 +5,7 @@ var orgsHandler = require('../../routeHandlers/orgsHandler.js');
 router.get('/:scope::id', function(req, res) {
 	orgsHandler.getOrg(req.params.id, function (org) {
 		if (org == undefined) {
-			res.sendStatus(500);
+			res.status(500).send();
 		} else {
 			res.send(org);
 		}
@@ -15,9 +15,9 @@ router.get('/:scope::id', function(req, res) {
 router.put('/:scope::id', function(req, res){
 	orgsHandler.saveOrg(req.params.id, JSON.stringify(req.body), function (succeeded) {
 		if (succeeded == false) {
-			res.sendStatus(500);
+			res.status(500).send();
 		} else {
-			res.sendStatus(200);
+			res.send();
 		}
 	});
 })
