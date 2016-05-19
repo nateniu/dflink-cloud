@@ -8,7 +8,7 @@ var rootPath = path.join(global.DBROOT, 'public');
 
 var fs = require('fs');
 
-var splunk_path = rootPath + '/posttosplunk.txt';
+var splunk_path = rootPath + '/dflinkclientlog.txt';
 
 router.post('/', function(req, res) {
     fs.appendFile(splunk_path, JSON.stringify(req.body) + '\r\n', 'utf-8', function (err) {
