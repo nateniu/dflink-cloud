@@ -17,7 +17,7 @@ router.put('/:scope::id', function(req, res){
 		if (succeeded == false) {
 			res.status(500).send();
 		} else {
-			res.send();
+			res.send({});
 		}
 	});
 })

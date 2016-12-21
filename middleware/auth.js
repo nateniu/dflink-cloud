@@ -14,6 +14,7 @@ passport.use(new BearerStrategy(
 
 var bearerAuth = function (token, done) {
     dal.queryByToken(token, function (error, rows) {
+		logger.error(token);
         if (error) {
             logger.error("error while authenticating token " + error);
             done(null, null);

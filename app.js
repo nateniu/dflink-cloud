@@ -4,11 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var v1Routes = require('./routes/v1');
-var auth = require('./middleware/auth');
 var login = require('./middleware/login');
-
+var auth = require('./middleware/auth');
 var app = express();
-auth.authenticate(app, '/orgs*');
+
+
 var env = process.env.NODE_ENV || 'development';
 app.locals.ENV = env;
 app.locals.ENV_DEVELOPMENT = env == 'development';
@@ -20,9 +20,22 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-//app.use('/v1', v1Routes);
+app.use(function(req, res, next){
+  res.header("Access-Control-Allow-Origin","*");
+  res.header("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept, Authorization ");
+  res.header("Access-Control-Allow-Credetials", "true");
+  next()
+})
+
+app.options('*', function(req, res, next){
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+  res.end();
+})
+
+auth.authenticate(app, '/orgs*');
+app.use(express.static('public'));
 app.use('/', v1Routes);
-app.use('/login',login);
+app.use('/dflogin',login);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
