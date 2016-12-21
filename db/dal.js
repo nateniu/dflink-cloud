@@ -48,7 +48,7 @@ var TEST_ACCOUNTS = {
 
 TEST_ACCOUNTS1 = {
   "spa_test@demandforce.com:ondemand1!": "{\"id\":\"137000111\",\"name\":\"Test\",\"industry\":\"3\",\"nodegroup\":\"d36.demandforced3.com\",\"license\":\"79C2DBC4-03CC-03D4-CB28-539D35A1EB29\",\"industryName\":\"SPA\"}",  
-  "auto@demandforce.com:ondemand1!": "{\"id\":\"137000722\",\"name\":\"Test Seaside\",\"industry\":\"1\",\"nodegroup\":\"d36.demandforced3.com\",\"license\":\"8A54A1A2-CC3A-6918-42D0-23826C8054AF\",\"industryName:\"Auto\"}",
+  "auto@demandforce.com:ondemand1!": "{\"id\":\"137000722\",\"name\":\"Test Seaside\",\"industry\":\"3\",\"nodegroup\":\"d36.demandforced3.com\",\"license\":\"8A54A1A2-CC3A-6918-42D0-23826C8054AF\",\"industryName\":\"Auto\"}",
   "vortx_test1@demandforce.com:ondemand1!": "{\"id\":\"137001011\",\"name\":\"Test Seaside\",\"industry\":\"2\",\"nodegroup\":\"d36.demandforced3.com\",\"license\":\"777D4E48-616A-2351-CE58-139B75414D79\",\"industryName\":\"Dental\"}",
   "test_2602@demandforce.com:ondemand1!": "{\"id\":\"137000333\",\"name\":\"Test Seaside\",\"industry\":\"2\",\"nodegroup\":\"d36.demandforced3.com\",\"license\":\"85609B6E-93E7-4716-55B7-1E63636F2092\",\"industryName\":\"Dental\"}",
   "auto_test1@demandforce.com:ondemand1!": "{\"id\":\"137000444\",\"name\":\"Test Seaside\",\"industry\":\"1\",\"nodegroup\":\"d337.demandforced3.com\",\"license\":\"D13E93EF-D71F-0335-782A-1977B513AC90\",\"industryName\":\"Auto\"}",
@@ -57,7 +57,7 @@ TEST_ACCOUNTS1 = {
 
 TEST_ACCOUNTS2 = {
   "79C2DBC4-03CC-03D4-CB28-539D35A1EB29": "{\"id\":\"137000111\",\"name\":\"Test\",\"industry\":\"3\",\"nodegroup\":\"d36.demandforced3.com\",\"license\":\"79C2DBC4-03CC-03D4-CB28-539D35A1EB29\",\"industryName\":\"SPA\"}",  
-  "8A54A1A2-CC3A-6918-42D0-23826C8054AF": "{\"id\":\"137000722\",\"name\":\"Test Seaside\",\"industry\":\"1\",\"nodegroup\":\"d36.demandforced3.com\",\"license\":\"8A54A1A2-CC3A-6918-42D0-23826C8054AF\",\"industryName:\"Auto\"}",
+  "8A54A1A2-CC3A-6918-42D0-23826C8054AF": "{\"id\":\"137000722\",\"name\":\"Test Seaside\",\"industry\":\"1\",\"nodegroup\":\"d36.demandforced3.com\",\"license\":\"8A54A1A2-CC3A-6918-42D0-23826C8054AF\",\"industryName\":\"Auto\"}",
   "777D4E48-616A-2351-CE58-139B75414D79": "{\"id\":\"137001011\",\"name\":\"Test Seaside\",\"industry\":\"2\",\"nodegroup\":\"d36.demandforced3.com\",\"license\":\"777D4E48-616A-2351-CE58-139B75414D79\",\"industryName\":\"Dental\"}",
   "85609B6E-93E7-4716-55B7-1E63636F2092": "{\"id\":\"137000333\",\"name\":\"Test Seaside\",\"industry\":\"2\",\"nodegroup\":\"d36.demandforced3.com\",\"license\":\"85609B6E-93E7-4716-55B7-1E63636F2092\",\"industryName\":\"Dental\"}",
   "D13E93EF-D71F-0335-782A-1977B513AC90": "{\"id\":\"137000444\",\"name\":\"Test Seaside\",\"industry\":\"1\",\"nodegroup\":\"d337.demandforced3.com\",\"license\":\"D13E93EF-D71F-0335-782A-1977B513AC90\",\"industryName\":\"Auto\"}",

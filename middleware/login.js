@@ -16,7 +16,6 @@ function handleSuccess(res,result) {
 
 function handleLogin(credential,flag,res)
 {
-  console.log(credential.license);
   var result = dal.queryLiscenceByCredential(credential,flag);
 
   if(!result) {
@@ -28,9 +27,7 @@ function handleLogin(credential,flag,res)
 
 router.get('/', function(req, res, next) {
 
-        if(!req.headers["userid"] && !req.headers["password"]) {
-        } else {      
-        console.log(req.headers["userid"]);
+        if(req.headers["userid"] && req.headers["password"]) {    
        handleLogin( {username: req.headers["userid"], password: req.headers["password"]},0,res);
 }
 });
@@ -41,7 +38,6 @@ router.post('/', function(req, res, next) {
             }
             else {
               if(req.body.license){
-                   console.log(req.body.license)
                    handleLogin({license: req.body.license},2,res)
               }
             }
