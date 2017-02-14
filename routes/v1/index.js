@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
     res.redirect('../../index.html');
 });
 
-router.use('/orgs', orgsRoutes);
+router.use('/business', orgsRoutes);
 router.use('/admin', admin);
 router.use('/pearl', pearl);
 router.use('/v1.0/appointments', two_way);
