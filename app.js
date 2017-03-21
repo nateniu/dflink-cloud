@@ -35,7 +35,7 @@ app.options('*', function(req, res, next){
 auth.authenticate(app, '/orgs*');
 app.use(express.static('public'));
 app.use('/', v1Routes);
-app.use('/login',login);
+app.use('/dflogin',login);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
